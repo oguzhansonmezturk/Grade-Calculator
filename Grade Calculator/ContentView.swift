@@ -8,14 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
+    @AppStorage("nameinput") private var nameinput: String = ""
+    
+    var body: some View {
+        
+        Text("Current nameinput: \(nameinput)")
+        
+        if isFirstLaunch {
+            WelcomeView() 
+        } else {
+            Homepage(username: nameinput.isEmpty ? "Kullanıcı" : nameinput)
+        }
+        
+    }
+}
+struct Homepage: View {
+    var username: String
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Hoşgeldin, \(username)!")
+                .font(.largeTitle)
+                .padding()
+            
         }
-        .padding()
     }
 }
 
